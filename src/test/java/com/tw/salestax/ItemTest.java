@@ -23,7 +23,7 @@ public class ItemTest {
     @Test
     void testImportDutyForImportedItems(){
         Item book = new ImportedItem(1, "imported book",10);
-        assertEquals(10.6,book.getTotalPrice());
+        assertEquals(11.5,book.getTotalPrice());
     }
 
 }

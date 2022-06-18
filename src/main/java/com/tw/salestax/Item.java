@@ -6,11 +6,13 @@ public class Item {
 
     private final int quantity;
     private final String name;
-    private final double amount;
+    protected final double amount;
 
     private final Category category;
 
     protected double basicSalesTax;
+    DecimalFormat df = new DecimalFormat("0.00");
+
 
     public Item(int quantity, String name, double amount) {
         this.quantity = quantity;
@@ -22,15 +24,19 @@ public class Item {
 
     public double calculateBasicSalesTax() {
         double tax = 0.0;
-        DecimalFormat df = new DecimalFormat("0.00");
+
         if (!category.isCategoryExemptFromSalesTax())
-            tax = Double.parseDouble(df.format(amount * .10));
+            tax = Double.parseDouble(df.format((amount * 10)/100));
         return tax;
     }
 
     public double getTotalPrice(){
         basicSalesTax =  calculateBasicSalesTax();
-        return amount + basicSalesTax;
+        double result = Double.parseDouble(df.format(amount + basicSalesTax));
+        return result;
     }
 
+    public String getDetails() {
+        return String.valueOf(quantity)+" " +name+" : "+ getTotalPrice();
+    }
 }

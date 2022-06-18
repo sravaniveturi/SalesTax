@@ -6,12 +6,12 @@ public class ImportedItem  extends Item{
 
     public ImportedItem(int quantity, String name, double amount) {
         super(quantity, name, amount);
-        super.basicSalesTax = 0.10D;
-        this.importTax =  amount * 0.05D;
+        super.basicSalesTax = amount * 0.10;
+        this.importTax =  amount * 0.05;
     }
 
     @Override
     public double getTotalPrice() {
-        return super.getTotalPrice() + importTax;
+        return  super.amount + super.basicSalesTax + importTax;
     }
 }
