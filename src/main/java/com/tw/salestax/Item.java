@@ -1,7 +1,6 @@
 package com.tw.salestax;
 
-import java.util.Arrays;
-import java.util.ResourceBundle;
+import java.text.DecimalFormat;
 
 public class Item {
 
@@ -9,22 +8,29 @@ public class Item {
     private final String name;
     private final double amount;
 
-    private Category category;
-    private double salestax;
+    private final Category category;
+
+    protected double basicSalesTax;
 
     public Item(int quantity, String name, double amount) {
         this.quantity = quantity;
         this.name = name;
         this.amount = amount;
-        salestax = 0.0;
+        basicSalesTax = 0.0;
         category = new Category(name);
     }
 
-    public double calculateSalesTax() {
+    public double calculateBasicSalesTax() {
+        double tax = 0.0;
+        DecimalFormat df = new DecimalFormat("0.00");
         if (!category.isCategoryExemptFromSalesTax())
-            this.salestax = amount * 0.01;
-        return this.salestax;
+            tax = Double.parseDouble(df.format(amount * .10));
+        return tax;
     }
 
+    public double getTotalPrice(){
+        basicSalesTax =  calculateBasicSalesTax();
+        return amount + basicSalesTax;
+    }
 
 }
