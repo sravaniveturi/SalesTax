@@ -1,6 +1,6 @@
 # SalesTax
 
-Assignment2
+Week 2- Sales tax Assignment
 
 ## Getting started
 
