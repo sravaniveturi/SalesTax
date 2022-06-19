@@ -12,7 +12,7 @@ class SalesTaxTest {
 
     List<Item> itemsList;
     Item book, chocolateBar, musicCD;
-    SalesTax salesTexAppl;
+    SalesTax salesTaxAppl;
 
     @BeforeEach
     void setUp() {
@@ -28,10 +28,10 @@ class SalesTaxTest {
         itemsList.add(book);
         itemsList.add(musicCD);
         itemsList.add(chocolateBar);
-        salesTexAppl = new SalesTax(itemsList);
+        salesTaxAppl = new SalesTax(itemsList);
 
         assertTrue(itemsList.contains(book));
-        salesTexAppl.sendReceipt();
+        salesTaxAppl.sendReceipt();
     }
 
     @Test
@@ -41,9 +41,9 @@ class SalesTaxTest {
 
         itemsList.add(importedChocolate);
         itemsList.add(importedperfume);
-        salesTexAppl = new SalesTax(itemsList);
+        salesTaxAppl = new SalesTax(itemsList);
 
-        salesTexAppl.sendReceipt();
+        salesTaxAppl.sendReceipt();
     }
 
     @Test
@@ -57,8 +57,8 @@ class SalesTaxTest {
         itemsList.add(perfume);
         itemsList.add(heachepills);
         itemsList.add(importedChocolate);
-        salesTexAppl = new SalesTax(itemsList);
+        salesTaxAppl = new SalesTax(itemsList);
 
-        salesTexAppl.sendReceipt();
+        salesTaxAppl.sendReceipt();
     }
 }

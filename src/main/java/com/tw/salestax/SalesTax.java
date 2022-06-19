@@ -13,12 +13,6 @@ public class SalesTax {
         itemsList = items;
     }
 
-    public void addItem(Item item){
-        if(item != null) {
-            itemsList.add(item);
-        }
-    }
-
     public double getTotalSalesTax(){
         double sum =0;
 
