@@ -36,8 +36,8 @@ class SalesTaxTest {
 
     @Test
     void checkReceiptForAddImportedItems() {
-        Item importedChocolate = new ImportedItem(1, "imported box of chocolates", 10);
-        Item importedperfume = new ImportedItem(1, "imported bottle of perfume", 47.50);
+        Item importedChocolate = new Item(1, "imported box of chocolates", 10);
+        Item importedperfume = new Item(1, "imported bottle of perfume", 47.50);
         itemsList.add(importedChocolate);
         itemsList.add(importedperfume);
 
@@ -46,10 +46,10 @@ class SalesTaxTest {
 
     @Test
     void checkReceiptForNormalAndImportedItems(){
-        Item importedperfume = new ImportedItem(1, "imported bottle of perfume", 27.99);
+        Item importedperfume = new Item(1, "imported bottle of perfume", 27.99);
         Item perfume = new Item(1, "bottle of perfume", 18.99);
         Item heachepills  = new Item(1,"packet of headache pills", 9.75);
-        Item importedChocolate = new ImportedItem(1, "imported box of chocolates", 11.25);
+        Item importedChocolate = new Item(1, "imported box of chocolates", 11.25);
 
         itemsList.add(importedperfume);
         itemsList.add(perfume);
