@@ -22,7 +22,7 @@ public class Item {
         category = new Category(name);
     }
 
-    public double calculateBasicSalesTax() {
+    public double calculateTax() {
         double tax = 0.0;
 
         if (!category.isCategoryExemptFromSalesTax())
@@ -31,12 +31,12 @@ public class Item {
     }
 
     public double getTotalPrice(){
-        basicSalesTax =  calculateBasicSalesTax();
+        basicSalesTax =  calculateTax();
         double result = Double.parseDouble(df.format(amount + basicSalesTax));
         return result;
     }
 
     public String getDetails() {
-        return String.valueOf(quantity)+" " +name+" : "+ getTotalPrice();
+        return String.valueOf(quantity)+" " +name+": "+ getTotalPrice();
     }
 }

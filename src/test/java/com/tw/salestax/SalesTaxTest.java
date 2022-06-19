@@ -12,28 +12,50 @@ class SalesTaxTest {
 
     List<Item> itemsList;
     Item book, chocolateBar, musicCD;
+    SalesTax salesTexAppl;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         itemsList = new ArrayList<>();
-        book = new Item(1,"book",12.49);
-        musicCD = new Item(1,"musicCD", 14.99);
-        chocolateBar = new Item(1,"chocolate bar",0.85);
+        salesTexAppl = new SalesTax(itemsList);
+    }
 
+    @Test
+    void checkReceiptForAddNormalItems() {
+        book = new Item(1, "book", 12.49);
+        musicCD = new Item(1, "musicCD", 14.99);
+        chocolateBar = new Item(1, "chocolate bar", 0.85);
+
+        itemsList.add(book);
         itemsList.add(musicCD);
         itemsList.add(chocolateBar);
-    }
 
-    @Test
-    void addItems() {
-        itemsList.add(book);
         assertTrue(itemsList.contains(book));
+        salesTexAppl.sendReceipt();
     }
 
     @Test
-    void displayItems() {
-        itemsList.add(book);
-        SalesTax salesTexAppl = new SalesTax(itemsList);
-        salesTexAppl.displayItems();
+    void checkReceiptForAddImportedItems() {
+        Item importedChocolate = new ImportedItem(1, "imported box of chocolates", 10);
+        Item importedperfume = new ImportedItem(1, "imported bottle of perfume", 47.50);
+        itemsList.add(importedChocolate);
+        itemsList.add(importedperfume);
+
+        salesTexAppl.sendReceipt();
+    }
+
+    @Test
+    void checkReceiptForNormalAndImportedItems(){
+        Item importedperfume = new ImportedItem(1, "imported bottle of perfume", 27.99);
+        Item perfume = new Item(1, "bottle of perfume", 18.99);
+        Item heachepills  = new Item(1,"packet of headache pills", 9.75);
+        Item importedChocolate = new ImportedItem(1, "imported box of chocolates", 11.25);
+
+        itemsList.add(importedperfume);
+        itemsList.add(perfume);
+        itemsList.add(heachepills);
+        itemsList.add(importedChocolate);
+
+        salesTexAppl.sendReceipt();
     }
 }

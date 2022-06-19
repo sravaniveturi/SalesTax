@@ -3,18 +3,19 @@ package  com.tw.salestax;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 public class SalesTax {
 
-    private List<Item> itemsList;
+    private final List<Item> itemsList;
 
-    DecimalFormat df = new DecimalFormat("0.00");
+    DecimalFormat df;
     public SalesTax(List<Item> items) {
         this.itemsList = items;
+        df = new DecimalFormat("0.00");
+        df.setRoundingMode(RoundingMode.HALF_DOWN);
     }
 
     public void addItems(Item item){
@@ -25,10 +26,9 @@ public class SalesTax {
 
     public double getTotalSalesTax(){
         double sum =0;
-        ListIterator<Item> iterator = itemsList.listIterator();
 
-        while( iterator.hasNext()){
-            sum += iterator.next().calculateBasicSalesTax();
+        for (Item item : itemsList) {
+            sum += item.calculateTax();
         }
         double result = Double.parseDouble(df.format(sum));
         return result;
@@ -36,17 +36,15 @@ public class SalesTax {
 
     public double getTotalPrice(){
         double sum =0;
-        ListIterator<Item> iterator = itemsList.listIterator();
 
-
-        while( iterator.hasNext()){
-            sum += iterator.next().getTotalPrice();
+        for (Item item : itemsList) {
+            sum += item.getTotalPrice();
         }
         double result = Double.parseDouble(df.format(sum));
         return  result;
     }
 
-    public void displayItems(){
+    public void sendReceipt(){
         StringBuilder sb = new StringBuilder();
         for(Item item: itemsList){
             sb.append(item.getDetails()).append("\n");
@@ -54,7 +52,7 @@ public class SalesTax {
         sb.append("Sales Tax: ").append(getTotalSalesTax()).append("\n")
                 .append("Total: ").append(getTotalPrice());
 
-        File outputFile = new File("output.txt");
+        File outputFile = new File("receipt.txt");
         try (FileWriter fw = new FileWriter(outputFile);
              BufferedWriter bw = new BufferedWriter(fw)) {
             bw.write(sb.toString());

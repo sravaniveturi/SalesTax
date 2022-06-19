@@ -1,17 +1,30 @@
 package com.tw.salestax;
 
-public class ImportedItem  extends Item{
+import java.text.DecimalFormat;
+
+public class ImportedItem extends Item {
 
     private final double importTax;
 
+    DecimalFormat df = new DecimalFormat("0.00");
+
     public ImportedItem(int quantity, String name, double amount) {
         super(quantity, name, amount);
-        super.basicSalesTax = amount * 0.10;
-        this.importTax =  amount * 0.05;
+        this.importTax = calcImportTax();
+    }
+    public double calcImportTax() {
+        return Double.parseDouble((df.format(super.amount * 0.05)));
+    }
+
+    @Override
+    public double calculateTax() {
+        return super.calculateTax() + calcImportTax();
     }
 
     @Override
     public double getTotalPrice() {
-        return  super.amount + super.basicSalesTax + importTax;
+        double totalPrice = Double.parseDouble(df.format(
+                super.amount + calculateTax()));
+        return totalPrice;
     }
 }
