@@ -3,17 +3,14 @@ package  com.tw.salestax;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class SalesTax {
 
     private  List<Item> itemsList;
 
-    DecimalFormat df;
     public SalesTax(List<Item> items) {
         itemsList = items;
-        df = new DecimalFormat("0.00");
     }
 
     public void addItem(Item item){
@@ -28,7 +25,7 @@ public class SalesTax {
         for (Item item : itemsList) {
             sum += (item.calculateSalesTax() + item.calculateImportDutyTax());
         }
-        return Double.parseDouble(df.format(sum));
+        return formatDecimalDigits(sum);
     }
 
     public double getTotalPrice(){
@@ -37,7 +34,11 @@ public class SalesTax {
         for (Item item : itemsList) {
             sum += item.getTotalPrice();
         }
-        return Double.parseDouble(df.format(sum));
+        return formatDecimalDigits(sum);
+    }
+
+    private double formatDecimalDigits(double sum) {
+        return Math.ceil(sum * 20)/20;
     }
 
     public void sendReceipt(){

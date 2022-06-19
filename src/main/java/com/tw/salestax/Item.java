@@ -1,6 +1,7 @@
 package com.tw.salestax;
 
 import java.text.DecimalFormat;
+
 public class Item {
 
     private final int quantity;
@@ -12,8 +13,6 @@ public class Item {
     private double basicSalesTax;
 
     private double additionalSalesTax;
-    DecimalFormat df = new DecimalFormat("0.00");
-
 
     public Item(int quantity, String name, double amount) {
         this.quantity = quantity;
@@ -28,8 +27,7 @@ public class Item {
         double tax = 0.0;
 
         if (!category.isCategoryExemptFromSalesTax()) {
-            tax = (amount * 10) / 100;
-            tax = Math.ceil(tax / 0.05) * 0.05;
+            tax = formatDecimalDigits(amount * 10) / 100;
         }
         return tax;
     }
@@ -40,7 +38,7 @@ public class Item {
 
     public double calculateImportDutyTax(){
         if(this.isImportedItem()){
-            return Double.parseDouble(df.format(amount * 0.05));
+            return formatDecimalDigits(amount * 0.05);
         }
         return 0.0;
     }
@@ -48,7 +46,12 @@ public class Item {
     public double getTotalPrice() {
         basicSalesTax = calculateSalesTax();
         additionalSalesTax = calculateImportDutyTax();
-        return amount + basicSalesTax + additionalSalesTax;
+        return formatDecimalDigits(amount + basicSalesTax + additionalSalesTax);
+    }
+
+    private double formatDecimalDigits(double value) {
+        DecimalFormat df =new DecimalFormat("0.00");
+        return Double.parseDouble(df.format(value));
     }
 
     public String getDetails() {

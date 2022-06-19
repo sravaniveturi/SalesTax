@@ -17,7 +17,6 @@ class SalesTaxTest {
     @BeforeEach
     void setUp() {
         itemsList = new ArrayList<>();
-        salesTexAppl = new SalesTax(itemsList);
     }
 
     @Test
@@ -29,6 +28,7 @@ class SalesTaxTest {
         itemsList.add(book);
         itemsList.add(musicCD);
         itemsList.add(chocolateBar);
+        salesTexAppl = new SalesTax(itemsList);
 
         assertTrue(itemsList.contains(book));
         salesTexAppl.sendReceipt();
@@ -38,8 +38,10 @@ class SalesTaxTest {
     void checkReceiptForAddImportedItems() {
         Item importedChocolate = new Item(1, "imported box of chocolates", 10);
         Item importedperfume = new Item(1, "imported bottle of perfume", 47.50);
+
         itemsList.add(importedChocolate);
         itemsList.add(importedperfume);
+        salesTexAppl = new SalesTax(itemsList);
 
         salesTexAppl.sendReceipt();
     }
@@ -55,6 +57,7 @@ class SalesTaxTest {
         itemsList.add(perfume);
         itemsList.add(heachepills);
         itemsList.add(importedChocolate);
+        salesTexAppl = new SalesTax(itemsList);
 
         salesTexAppl.sendReceipt();
     }
