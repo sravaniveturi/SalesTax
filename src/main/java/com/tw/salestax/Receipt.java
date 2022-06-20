@@ -5,11 +5,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 
-public class SalesTax {
+public class Receipt {
 
     private  List<Item> itemsList;
 
-    public SalesTax(List<Item> items) {
+    public Receipt(List<Item> items) {
         itemsList = items;
     }
 
@@ -35,18 +35,21 @@ public class SalesTax {
         return Math.ceil(sum * 20)/20;
     }
 
-    public void sendReceipt(){
+    public void generateReceipt() {
         StringBuilder sb = new StringBuilder();
-        for(Item item: itemsList){
+        for (Item item : itemsList) {
             sb.append(item.getDetails()).append("\n");
         }
         sb.append("Sales Tax: ").append(getTotalSalesTax()).append("\n")
                 .append("Total: ").append(getTotalPrice());
+        sendReceipt(sb.toString());
+    }
 
+        public void sendReceipt(String stringDetails){
         File outputFile = new File("receipt.txt");
         try (FileWriter fw = new FileWriter(outputFile);
              BufferedWriter bw = new BufferedWriter(fw)) {
-            bw.write(sb.toString());
+            bw.write(stringDetails);
             bw.newLine();
         }catch(Exception e){
             e.getMessage();

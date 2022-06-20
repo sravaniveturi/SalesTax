@@ -8,11 +8,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SalesTaxTest {
+class ReceiptTest {
 
     List<Item> itemsList;
     Item book, chocolateBar, musicCD;
-    SalesTax salesTaxAppl;
+    Receipt receipt;
 
     @BeforeEach
     void setUp() {
@@ -28,10 +28,10 @@ class SalesTaxTest {
         itemsList.add(book);
         itemsList.add(musicCD);
         itemsList.add(chocolateBar);
-        salesTaxAppl = new SalesTax(itemsList);
+        receipt = new Receipt(itemsList);
 
         assertTrue(itemsList.contains(book));
-        salesTaxAppl.sendReceipt();
+        receipt.generateReceipt();
     }
 
     @Test
@@ -41,9 +41,9 @@ class SalesTaxTest {
 
         itemsList.add(importedChocolate);
         itemsList.add(importedperfume);
-        salesTaxAppl = new SalesTax(itemsList);
+        receipt = new Receipt(itemsList);
 
-        salesTaxAppl.sendReceipt();
+        receipt.generateReceipt();
     }
 
     @Test
@@ -57,8 +57,8 @@ class SalesTaxTest {
         itemsList.add(perfume);
         itemsList.add(heachepills);
         itemsList.add(importedChocolate);
-        salesTaxAppl = new SalesTax(itemsList);
+        receipt = new Receipt(itemsList);
 
-        salesTaxAppl.sendReceipt();
+        receipt.generateReceipt();
     }
 }
