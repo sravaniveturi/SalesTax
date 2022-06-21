@@ -1,4 +1,4 @@
-package com.tw.salestax;
+package com.tw.salestax.model;
 
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -12,7 +12,7 @@ public class Category {
         name = getCategoryName(itemName);
     }
 
-    public boolean isCategoryExemptFromSalesTax() {
+    public boolean isCategoryExempt() {
         String[] exemptString = bundle.getString("categories_exempt").split(",");
 
         for (String exemptCategory : exemptString) {

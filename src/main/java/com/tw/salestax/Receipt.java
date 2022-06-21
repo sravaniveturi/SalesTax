@@ -1,4 +1,6 @@
-package  com.tw.salestax;
+package com.tw.salestax;
+
+import com.tw.salestax.model.Item;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,53 +9,42 @@ import java.util.List;
 
 public class Receipt {
 
-    private  List<Item> itemsList;
+    private final List<Item> itemsList;
+
+    private double totalSalesTax, totalPrice;
 
     public Receipt(List<Item> items) {
         itemsList = items;
+        totalPrice = 0.0;
+        totalSalesTax = 0.0;
     }
 
-    public double getTotalSalesTax(){
-        double sum =0;
-
-        for (Item item : itemsList) {
-            sum += (item.calculateSalesTax() + item.calculateImportDutyTax());
-        }
-        return formatDecimalDigits(sum);
-    }
-
-    public double getTotalPrice(){
-        double sum =0;
-
-        for (Item item : itemsList) {
-            sum += item.getTotalPrice();
-        }
-        return formatDecimalDigits(sum);
-    }
-
-    private double formatDecimalDigits(double sum) {
-        return Math.ceil(sum * 20)/20;
-    }
-
-    public void generateReceipt() {
+    public void getReceiptDetails() {
         StringBuilder sb = new StringBuilder();
         for (Item item : itemsList) {
             sb.append(item.getDetails()).append("\n");
+            totalSalesTax += item.getTotalSalesTax();
+            totalPrice += item.getTotalPrice();
         }
-        sb.append("Sales Tax: ").append(getTotalSalesTax()).append("\n")
-                .append("Total: ").append(getTotalPrice());
+        sb.append("Sales Tax: ").append(roundOff(totalSalesTax)).append("\n")
+                .append("Total: ").append(totalPrice);
         sendReceipt(sb.toString());
     }
 
-        public void sendReceipt(String stringDetails){
+    public void sendReceipt(String stringDetails) {
         File outputFile = new File("receipt.txt");
         try (FileWriter fw = new FileWriter(outputFile);
              BufferedWriter bw = new BufferedWriter(fw)) {
             bw.write(stringDetails);
             bw.newLine();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.getMessage();
         }
     }
+
+    private double roundOff(double sum) {
+        return Math.ceil(sum * 20) / 20;
+    }
+
 
 }
