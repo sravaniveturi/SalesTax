@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class SalesTaxApplicationTest {
 
     List<Item> itemsList;
@@ -28,7 +30,8 @@ class SalesTaxApplicationTest {
         salesTax.addItem(musicCD);
         salesTax.addItem(chocolateBar);
 
-        salesTax.generateReceipt();
+        Receipt receipt =salesTax.generateReceipt();
+        assertEquals( 29.83, receipt.getTotalPrice());
     }
 
     @Test
@@ -39,7 +42,8 @@ class SalesTaxApplicationTest {
         salesTax.addItem(importedChocolate);
         salesTax.addItem(importedPerfume);
 
-        salesTax.generateReceipt();
+        Receipt receipt = salesTax.generateReceipt();
+        assertEquals( 65.13, receipt.getTotalPrice());
     }
 
     @Test
@@ -54,7 +58,8 @@ class SalesTaxApplicationTest {
         salesTax.addItem(headachePills);
         salesTax.addItem(importedChocolate);
 
-        salesTax.generateReceipt();
+        Receipt receipt = salesTax.generateReceipt();
+        assertEquals( 74.64, receipt.getTotalPrice());
 
     }
 }

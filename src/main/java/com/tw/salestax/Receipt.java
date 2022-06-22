@@ -46,5 +46,8 @@ public class Receipt {
         return Math.ceil(sum * 20) / 20;
     }
 
+    public double getTotalPrice(){
+        return this.totalPrice;
+    }
 
 }
